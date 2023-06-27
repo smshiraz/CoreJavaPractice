@@ -82,7 +82,9 @@ public class EmployeeStreamDemo {
 		// Query 15 : Who is the oldest employee in the organization? What is his age
 		// and which department he belongs to?
 		method15();
-
+		System.out.println("\n");
+		// Query 12 : List down the name of the employee with the highest salary.
+		 method16();
 	}
 
 	public static void method1() {
@@ -275,6 +277,16 @@ public class EmployeeStreamDemo {
 		System.out.println("Age : "+oldestEmployee.getAge());
 		         
 		System.out.println("Department : "+oldestEmployee.getDepartment());
+	}
+	
+	public static void method16() {
+		System.out.println("Query 16 : List down the name of the employee with the highest salary.?");
+				
+		 Optional<Employee> maxSalaryEmp = 
+		            employeeList.stream()
+		            .collect(Collectors.maxBy(Comparator.comparing(Employee::getSalary)));
+		    System.out.println("Employee with max salary:"
+		            + (maxSalaryEmp.isPresent()? maxSalaryEmp.get():"Not Applicable"));
 	}
 
 }
