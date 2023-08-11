@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class CountCharInString {
-// count the occurances of each character in a string
+// count the occurrences of each character in a string
 	public static void main(String[] args) {
 		
 		String str="i love india and assam";

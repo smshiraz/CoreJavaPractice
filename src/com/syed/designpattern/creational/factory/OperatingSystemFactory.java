@@ -12,9 +12,9 @@ public class OperatingSystemFactory {
 		{
 			return new IOS();
 		}
-		else
-		{
+		
 			return new Windows();
-		}
+	
+		
 	}
 }
