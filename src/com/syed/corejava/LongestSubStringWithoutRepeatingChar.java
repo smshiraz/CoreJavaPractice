@@ -8,36 +8,50 @@
 
 package com.syed.corejava;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LongestSubStringWithoutRepeatingChar {
-
 	public static void main(String[] args) {
-				lengthOfLongestSubString("abbac");	
+		lengthOfLongestSubString("abbac");
+		lengthOfLongestSubString("abcabcbb");
+		lengthOfLongestSubString("pwwkew");
 	}
 
 	private static void lengthOfLongestSubString(String s) {
-		String longestSubString=null;
-		int longestSubStringLength=0;
-		Map<Character,Integer> map= new LinkedHashMap<>();
-		
-		char arr[] = s.toCharArray();
-		
-		for(int i=0;i<arr.length; i++)
-		{
-			char ch=arr[i];
-			
-			if(! map.containsKey(arr))
-			{
-				map.put(ch, i);
+		if (s == null || s.isEmpty()) {
+			System.out.println("Length: 0");
+			return;
+		}
+
+		Map<Character, Integer> map = new HashMap<>();
+		int maxLength = 0;
+		int start = 0;
+		String longestSubString = "";
+
+		for (int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+
+			// If character is already in map, update start position
+			if (map.containsKey(ch)) {
+				start = Math.max(start, map.get(ch) + 1);
 			}
-			else
-			{
-				i=map.get(ch);
+
+			// Update the character's position
+			map.put(ch, i);
+
+			// Check if current substring is longer
+			int currentLength = i - start + 1;
+			if (currentLength > maxLength) {
+				maxLength = currentLength;
+				longestSubString = s.substring(start, i + 1);
 			}
 		}
-		
+
+		System.out.println("Input: " + s);
+		System.out.println("Longest substring: " + longestSubString);
+		System.out.println("Length: " + maxLength);
+		System.out.println();
 	}
 
 }
