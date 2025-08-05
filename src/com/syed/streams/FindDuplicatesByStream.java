@@ -27,6 +27,19 @@ public class FindDuplicatesByStream {
 			System.out.println(k + "--" + v);
 		}
 		);
+		
+		
+		/*
+		  Map<String, Long> characterOccurrence = Arrays.stream(input.split(""))
+			    .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
+			    .entrySet().stream()
+			    .filter(entry -> entry.getValue() > 1)
+			    .collect(Collectors.toMap(
+			        entry -> entry.getKey(),
+			        entry -> entry.getValue()
+			    ));
+		System.out.println(characterOccurrence);
+		 */
 
 	}
 

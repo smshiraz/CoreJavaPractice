@@ -80,7 +80,7 @@ public class IterateHaspMap {
 	        Students.put(2, "Bob");
 	        Students.put(3, "Mary");
 	  
-	        Iterator<Entry<Integer, String>> iterator = Students.entrySet().iterator();
+	        Iterator<Map.Entry<Integer, String>> iterator = Students.entrySet().iterator();
 	        while (iterator.hasNext()) {
 	            Map.Entry entry = iterator.next();
 	            System.out.println("Key : " + entry.getKey() + " value : " + entry.getValue());
