@@ -1,11 +1,3 @@
-/* 
- * Input abbac  
- * Output bac  length is 3
- * 
- * Input abcabcbb
- * Output bac    length is 3
-*/
-
 package com.syed.corejava;
 
 import java.util.HashMap;
@@ -13,45 +5,34 @@ import java.util.Map;
 
 public class LongestSubStringWithoutRepeatingChar {
 	public static void main(String[] args) {
-		lengthOfLongestSubString("abbac");
-		lengthOfLongestSubString("abcabcbb");
-		lengthOfLongestSubString("pwwkew");
+		printLongestUniqueSubstring("abbac");
+		printLongestUniqueSubstring("abcabcbb");
+		printLongestUniqueSubstring("pwwkew");
 	}
 
-	private static void lengthOfLongestSubString(String s) {
+	private static void printLongestUniqueSubstring(String s) {
 		if (s == null || s.isEmpty()) {
-			System.out.println("Length: 0");
+			System.out.println("Output:  Length is 0");
 			return;
 		}
 
-		Map<Character, Integer> map = new HashMap<>();
-		int maxLength = 0;
-		int start = 0;
-		String longestSubString = "";
+		Map<Character, Integer> lastSeen = new HashMap<>();
+		int maxLen = 0, start = 0;
+		int maxStart = 0; // Start index of the max substring
 
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
-
-			// If character is already in map, update start position
-			if (map.containsKey(ch)) {
-				start = Math.max(start, map.get(ch) + 1);
+			if (lastSeen.containsKey(ch) && lastSeen.get(ch) >= start) {
+				start = lastSeen.get(ch) + 1;
 			}
-
-			// Update the character's position
-			map.put(ch, i);
-
-			// Check if current substring is longer
-			int currentLength = i - start + 1;
-			if (currentLength > maxLength) {
-				maxLength = currentLength;
-				longestSubString = s.substring(start, i + 1);
+			lastSeen.put(ch, i);
+			if (i - start + 1 > maxLen) {
+				maxLen = i - start + 1;
+				maxStart = start;
 			}
 		}
 
-		System.out.println("Input: " + s);
-		System.out.println("Longest substring: " + longestSubString);
-		System.out.println("Length: " + maxLength);
-		System.out.println();
+		String result = s.substring(maxStart, maxStart + maxLen);
+		System.out.println("Output: " + result + "  length is " + maxLen);
 	}
-
 }
