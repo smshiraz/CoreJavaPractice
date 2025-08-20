@@ -16,18 +16,19 @@ public class LongestSubStringWithoutRepeatingChar {
 			return;
 		}
 
-		Map<Character, Integer> lastSeen = new HashMap<>();
-		int maxLen = 0, start = 0;
-		int maxStart = 0; // Start index of the max substring
+		Map<Character, Integer> lastIndex = new HashMap<>();
+		int start = 0, maxStart = 0, maxLen = 0;
 
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
-			if (lastSeen.containsKey(ch) && lastSeen.get(ch) >= start) {
-				start = lastSeen.get(ch) + 1;
+			if (lastIndex.containsKey(ch) && lastIndex.get(ch) >= start) {
+				start = lastIndex.get(ch) + 1;
 			}
-			lastSeen.put(ch, i);
-			if (i - start + 1 > maxLen) {
-				maxLen = i - start + 1;
+			lastIndex.put(ch, i);
+
+			int currentLen = i - start + 1;
+			if (currentLen > maxLen) {
+				maxLen = currentLen;
 				maxStart = start;
 			}
 		}
