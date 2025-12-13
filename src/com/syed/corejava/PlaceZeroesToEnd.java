@@ -14,7 +14,7 @@ public class PlaceZeroesToEnd {
         System.out.println("After moving zeroes: " + Arrays.toString(arr));
         
         // Test with different arrays
-        int[] arr2 = {0, 1, 0, 3, 12};
+        int[] arr2 = {1, 0, 0, 3, 12};
         System.out.println("\nOriginal array: " + Arrays.toString(arr2));
         moveZeroes(arr2);
 		System.out.println("After moving zeroes: " + Arrays.toString(arr2));

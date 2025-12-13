@@ -1,39 +1,62 @@
 package com.syed.corejava;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class LongestSubStringWithoutRepeatingChar {
+
 	public static void main(String[] args) {
-		printLongestUniqueSubstring("abbac");
-		printLongestUniqueSubstring("abcabcbb");
-		printLongestUniqueSubstring("pwwkew");
+		System.out.println(LengthOfLongestSubstring("java")); // jav
+		System.out.println(LengthOfLongestSubstring("abcabcbb")); // abc
+		System.out.println(LengthOfLongestSubstring("pwwkew")); // wke
 	}
 
-	private static void printLongestUniqueSubstring(String s) {
+	public static String LengthOfLongestSubstring(String s) {
+
 		if (s == null || s.isEmpty()) {
-			System.out.println("Output:  Length is 0");
-			return;
+			return "";
 		}
 
-		Map<Character, Integer> lastIndex = new HashMap<>();
-		int start = 0, maxStart = 0, maxLen = 0;
+		String longestSubstring = "";
+		int longestSubstringLength = 0;
 
-		for (int i = 0; i < s.length(); i++) {
-			char ch = s.charAt(i);
-			if (lastIndex.containsKey(ch) && lastIndex.get(ch) >= start) {
-				start = lastIndex.get(ch) + 1;
-			}
-			lastIndex.put(ch, i);
+		Map<Character, Integer> map = new LinkedHashMap<>();
 
-			int currentLen = i - start + 1;
-			if (currentLen > maxLen) {
-				maxLen = currentLen;
-				maxStart = start;
+		char[] arr = s.toCharArray();
+
+		for (int i = 0; i < arr.length; i++) {
+
+			char ch = arr[i];
+
+			// If duplicate found, save current substring before clearing
+			if (map.containsKey(ch)) {
+
+				if (map.size() > longestSubstringLength) {
+					longestSubstringLength = map.size();
+
+					StringBuilder sb = new StringBuilder();
+					for (char c : map.keySet()) {
+						sb.append(c);
+					}
+					longestSubstring = sb.toString();
+				}
+
+				map.clear();
 			}
+
+			// Add current character
+			map.put(ch, i);
 		}
 
-		String result = s.substring(maxStart, maxStart + maxLen);
-		System.out.println("Output: " + result + "  length is " + maxLen);
+		// Final check (important if longest substring is at the end)
+		if (map.size() > longestSubstringLength) {
+			StringBuilder sb = new StringBuilder();
+			for (char c : map.keySet()) {
+				sb.append(c);
+			}
+			longestSubstring = sb.toString();
+		}
+
+		return longestSubstring;
 	}
 }

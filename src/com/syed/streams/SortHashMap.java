@@ -1,6 +1,6 @@
 package com.syed.streams;
 
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,10 +25,9 @@ public class SortHashMap
         Map<Integer, String> sortedHashMap 
         = hashMap.entrySet()
                    .stream()
-                   .sorted(Collections.reverseOrder(Entry.comparingByValue()))
+                   .sorted(Entry.comparingByValue(Comparator.reverseOrder()))
                    .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1,  e2) -> e1, LinkedHashMap::new));
-         // OR  
-        // .sorted(Entry.comparingByValue(Comparator.reverseOrder()))
+         
         
         
         //Print hashMap before and after sorting

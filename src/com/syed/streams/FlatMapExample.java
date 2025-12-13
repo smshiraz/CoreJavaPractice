@@ -1,7 +1,8 @@
 package com.syed.streams;
 /*
  * 
- * In Java 8 Streams, the flatMap() method applies operation as a mapper function and provides a stream of element values.
+ * In Java 8 Streams, the flatMap() method applies operation as a
+ * mapper function and provides a stream of element values.
  *  It means that in each iteration of each element the map() method creates a separate new stream. By using the flattening
  *   mechanism, it merges all streams into a single resultant stream. 
  *   In short, it is used to convert a Stream of Stream into a list of values.
