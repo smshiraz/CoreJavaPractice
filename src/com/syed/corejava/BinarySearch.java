@@ -20,7 +20,7 @@ public class BinarySearch {
 				start = temp + 1;
 
 			} else {
-				end = end - 1;
+				end = temp - 1;
 			}
 		}
 		
