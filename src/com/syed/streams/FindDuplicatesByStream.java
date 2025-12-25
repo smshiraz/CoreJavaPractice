@@ -30,15 +30,12 @@ public class FindDuplicatesByStream {
 		
 		
 		/*
-		  Map<String, Long> characterOccurrence = Arrays.stream(input.split(""))
-			    .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
-			    .entrySet().stream()
-			    .filter(entry -> entry.getValue() > 1)
-			    .collect(Collectors.toMap(
-			        entry -> entry.getKey(),
-			        entry -> entry.getValue()
-			    ));
-		System.out.println(characterOccurrence);
+		   noCount.entrySet().stream()
+                .filter(entry -> entry.getValue() > 1)
+                .forEach(entry ->
+                        System.out.println(entry.getKey() + "--" + entry.getValue())
+                );
+
 		 */
 
 	}
