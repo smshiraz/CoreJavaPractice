@@ -85,12 +85,12 @@ public class EmployeeStreamDemo {
 		method15();
 		System.out.println("\n");
 		// Query 16 : List down the name of the employee with the highest salary.
-		 method16();
-		 
-		 System.out.println("\n");
-			// Query 17 : Sort the employees with salary in descending order.
-			 method17();
-		
+		method16();
+
+		System.out.println("\n");
+		// Query 17 : Sort the employees with salary in descending order.
+		method17();
+
 	}
 
 	public static void method1() {
@@ -116,6 +116,9 @@ public class EmployeeStreamDemo {
 		System.out.println("Query 4 : Get the details of highest paid employee in the organization?");
 		Optional<Employee> highestPaidEmployeeWrapper = employeeList.stream()
 				.collect(Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary)));
+
+		//Optional<Employee> highestPaidEmployee = employeeList.stream()
+				//.max(Comparator.comparingDouble(Employee::getSalary));
 		System.out.println(highestPaidEmployeeWrapper.get().getName());
 	}
 
@@ -139,172 +142,160 @@ public class EmployeeStreamDemo {
 
 	public static void method7() {
 		System.out.println("Query 7 : What is the average salary of each department?");
-		Map<String, Double> avgSalaryOfDepartments=
-				employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
-				         
-				Set<Entry<String, Double>> entrySet = avgSalaryOfDepartments.entrySet();
-				         
-				for (Entry<String, Double> entry : entrySet) 
-				{
-				    System.out.println(entry.getKey()+" : "+entry.getValue());
-				}
+		Map<String, Double> avgSalaryOfDepartments = employeeList.stream().collect(
+				Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
+
+		Set<Entry<String, Double>> entrySet = avgSalaryOfDepartments.entrySet();
+
+		for (Entry<String, Double> entry : entrySet) {
+			System.out.println(entry.getKey() + " : " + entry.getValue());
+		}
 	}
 
 	public static void method8() {
 		System.out
 				.println("Query 8 : Get the details of youngest male employee in the product development department?");
-		Optional<Employee> youngestMaleEmployeeInProductDevelopmentWrapper=
-				employeeList.stream()
-				            .filter(e -> e.getGender()=="Male" && e.getDepartment()=="Product Development")
-				            .min(Comparator.comparingInt(Employee::getAge));
-				         
-				Employee youngestMaleEmployeeInProductDevelopment = youngestMaleEmployeeInProductDevelopmentWrapper.get();
-				         
-				System.out.println("Details Of Youngest Male Employee In Product Development");
-				         
-				System.out.println("----------------------------------------------");
-				         
-				System.out.println("ID : "+youngestMaleEmployeeInProductDevelopment.getId());
-				         
-				System.out.println("Name : "+youngestMaleEmployeeInProductDevelopment.getName());
-				         
+		Optional<Employee> youngestMaleEmployeeInProductDevelopmentWrapper = employeeList.stream()
+				.filter(e -> e.getGender() == "Male" && e.getDepartment() == "Product Development")
+				.min(Comparator.comparingInt(Employee::getAge));
+
+		Employee youngestMaleEmployeeInProductDevelopment = youngestMaleEmployeeInProductDevelopmentWrapper.get();
+
+		System.out.println("Details Of Youngest Male Employee In Product Development");
+
+		System.out.println("----------------------------------------------");
+
+		System.out.println("ID : " + youngestMaleEmployeeInProductDevelopment.getId());
+
+		System.out.println("Name : " + youngestMaleEmployeeInProductDevelopment.getName());
+
 	}
 
 	public static void method9() {
 		System.out.println("Query 9 : Who has the most working experience in the organization?");
-		Optional<Employee> seniorMostEmployeeWrapper=
-				employeeList.stream().sorted(Comparator.comparingInt(Employee::getYearOfJoining)).findFirst();
-				         
-				Employee seniorMostEmployee = seniorMostEmployeeWrapper.get();
-				         
-				System.out.println("Senior Most Employee Details :");
-				         
-				System.out.println("----------------------------");
-				         
-				System.out.println("ID : "+seniorMostEmployee.getId());
-				         
-				System.out.println("Name : "+seniorMostEmployee.getName());
+		Optional<Employee> seniorMostEmployeeWrapper = employeeList.stream()
+				.sorted(Comparator.comparingInt(Employee::getYearOfJoining)).findFirst();
+
+		Employee seniorMostEmployee = seniorMostEmployeeWrapper.get();
+
+		System.out.println("Senior Most Employee Details :");
+
+		System.out.println("----------------------------");
+
+		System.out.println("ID : " + seniorMostEmployee.getId());
+
+		System.out.println("Name : " + seniorMostEmployee.getName());
 	}
 
 	public static void method10() {
 		System.out.println("Query 10 : How many male and female employees are there in the sales and marketing team?");
-		Map<String, Long> countMaleFemaleEmployeesInSalesMarketing=
-				employeeList.stream()
-				            .filter(e -> e.getDepartment()=="Sales And Marketing")
-				            .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
-				 
-				System.out.println(countMaleFemaleEmployeesInSalesMarketing);
+		Map<String, Long> countMaleFemaleEmployeesInSalesMarketing = employeeList.stream()
+				.filter(e -> e.getDepartment() == "Sales And Marketing")
+				.collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
+
+		System.out.println(countMaleFemaleEmployeesInSalesMarketing);
 	}
 
 	public static void method11() {
 		System.out.println("Query 11 : What is the average salary of male and female employees?");
-		Map<String, Double> avgSalaryOfMaleAndFemaleEmployees=
-				employeeList.stream().collect(Collectors.groupingBy(Employee::getGender, 
-						Collectors.averagingDouble(Employee::getSalary)));
-				         
-				System.out.println(avgSalaryOfMaleAndFemaleEmployees);
+		Map<String, Double> avgSalaryOfMaleAndFemaleEmployees = employeeList.stream()
+				.collect(Collectors.groupingBy(Employee::getGender, Collectors.averagingDouble(Employee::getSalary)));
+
+		System.out.println(avgSalaryOfMaleAndFemaleEmployees);
 	}
 
 	public static void method12() {
 		System.out.println("Query 12 : List down the names of all employees in each department?");
-		Map<String, List<Employee>> employeeListByDepartment=
-				employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment));
-				         
-				Set<Entry<String, List<Employee>>> entrySet = employeeListByDepartment.entrySet();
-				         
-				for (Entry<String, List<Employee>> entry : entrySet) 
-				{
-				    System.out.println("--------------------------------------");
-				             
-				    System.out.println("Employees In "+entry.getKey() + " : ");
-				             
-				    System.out.println("--------------------------------------");
-				             
-				    List<Employee> list = entry.getValue();
-				             
-				    for (Employee e : list) 
-				    {
-				        System.out.println(e.getName());
-				    }
-				}
+		Map<String, List<Employee>> employeeListByDepartment = employeeList.stream()
+				.collect(Collectors.groupingBy(Employee::getDepartment));
+
+		Set<Entry<String, List<Employee>>> entrySet = employeeListByDepartment.entrySet();
+
+		for (Entry<String, List<Employee>> entry : entrySet) {
+			System.out.println("--------------------------------------");
+
+			System.out.println("Employees In " + entry.getKey() + " : ");
+
+			System.out.println("--------------------------------------");
+
+			List<Employee> list = entry.getValue();
+
+			for (Employee e : list) {
+				System.out.println(e.getName());
+			}
+		}
 	}
 
 	public static void method13() {
 		System.out.println("Query 13 : What is the average salary and total salary of the whole organization?");
-		DoubleSummaryStatistics employeeSalaryStatistics=
-				employeeList.stream().collect(Collectors.summarizingDouble(Employee::getSalary));
-				         
-				System.out.println("Average Salary = "+employeeSalaryStatistics.getAverage());
-				         
-				System.out.println("Total Salary = "+employeeSalaryStatistics.getSum());
+		DoubleSummaryStatistics employeeSalaryStatistics = employeeList.stream()
+				.collect(Collectors.summarizingDouble(Employee::getSalary));
+
+		System.out.println("Average Salary = " + employeeSalaryStatistics.getAverage());
+
+		System.out.println("Total Salary = " + employeeSalaryStatistics.getSum());
 	}
 
 	public static void method14() {
 		System.out.println(
 				"Query 14 : Separate the employees who are younger or equal to 25 years from those employees who are older than 25 years.");
-		Map<Boolean, List<Employee>> partitionEmployeesByAge=
-				employeeList.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 25));
-				         
-				Set<Entry<Boolean, List<Employee>>> entrySet = partitionEmployeesByAge.entrySet();
-				         
-				for (Entry<Boolean, List<Employee>> entry : entrySet) 
-				{
-				    System.out.println("----------------------------");
-				             
-				    if (entry.getKey()) 
-				    {
-				        System.out.println("Employees older than 25 years :");
-				    }
-				    else
-				    {
-				        System.out.println("Employees younger than or equal to 25 years :");
-				    }
-				             
-				    System.out.println("----------------------------");
-				             
-				    List<Employee> list = entry.getValue();
-				             
-				    for (Employee e : list) 
-				    {
-				        System.out.println(e.getName());
-				    }
-				}
+		Map<Boolean, List<Employee>> partitionEmployeesByAge = employeeList.stream()
+				.collect(Collectors.partitioningBy(e -> e.getAge() > 25));
+
+		Set<Entry<Boolean, List<Employee>>> entrySet = partitionEmployeesByAge.entrySet();
+
+		for (Entry<Boolean, List<Employee>> entry : entrySet) {
+			System.out.println("----------------------------");
+
+			if (entry.getKey()) {
+				System.out.println("Employees older than 25 years :");
+			} else {
+				System.out.println("Employees younger than or equal to 25 years :");
+			}
+
+			System.out.println("----------------------------");
+
+			List<Employee> list = entry.getValue();
+
+			for (Employee e : list) {
+				System.out.println(e.getName());
+			}
+		}
 	}
 
 	public static void method15() {
 		System.out.println(
 				"Query 15 : Who is the oldest employee in the organization? What is his age and which department he belongs to?");
 		Optional<Employee> oldestEmployeeWrapper = employeeList.stream().max(Comparator.comparingInt(Employee::getAge));
-        
+
 		Employee oldestEmployee = oldestEmployeeWrapper.get();
-		         
-		System.out.println("Name : "+oldestEmployee.getName());
-		         
-		System.out.println("Age : "+oldestEmployee.getAge());
-		         
-		System.out.println("Department : "+oldestEmployee.getDepartment());
+
+		System.out.println("Name : " + oldestEmployee.getName());
+
+		System.out.println("Age : " + oldestEmployee.getAge());
+
+		System.out.println("Department : " + oldestEmployee.getDepartment());
 	}
-	
+
 	public static void method16() {
 		System.out.println("Query 16 : List down the name of the employee with the highest salary.?");
-				
-		 Optional<Employee> maxSalaryEmp = 
-		            employeeList.stream()
-		            .collect(Collectors.maxBy(Comparator.comparing(Employee::getSalary)));
-		    System.out.println("Employee with max salary:"
-		            + (maxSalaryEmp.isPresent()? maxSalaryEmp.get():"Not Applicable"));
-		    
-		    Optional<Employee> maxSalaryEmp1 =  employeeList.stream().max(Comparator.comparing(Employee::getSalary));
-		    		System.out.println("Employee with max salary can also be found like this:"
-				            + (maxSalaryEmp1.isPresent()? maxSalaryEmp1.get():"Not Applicable"));
+
+		Optional<Employee> maxSalaryEmp = employeeList.stream()
+				.collect(Collectors.maxBy(Comparator.comparing(Employee::getSalary)));
+		System.out.println(
+				"Employee with max salary:" + (maxSalaryEmp.isPresent() ? maxSalaryEmp.get() : "Not Applicable"));
+
+		Optional<Employee> maxSalaryEmp1 = employeeList.stream().max(Comparator.comparing(Employee::getSalary));
+		System.out.println("Employee with max salary can also be found like this:"
+				+ (maxSalaryEmp1.isPresent() ? maxSalaryEmp1.get() : "Not Applicable"));
 	}
-	
+
 	public static void method17() {
 		System.out.println("Query 17 : Employees in descending order of salary are?");
-	 List < Employee > employeesSortedList = employeeList.stream()
-	            .sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).collect(Collectors.toList()); 
-	       
-	 System.out.println(employeesSortedList);
+		List<Employee> employeesSortedList = employeeList.stream()
+				.sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).collect(Collectors.toList());
+
+		System.out.println(employeesSortedList);
 	}
 }
 

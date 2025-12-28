@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class PlaceZeroesToEnd {
     
     public static void main(String[] args) {
-        int[] arr = {6, 0, 1, 0, 0, 3, 1, 2};
+        int[] arr = {0, 6, 1, 0, 0, 3, 1, 2};
         System.out.println("Original array: " + Arrays.toString(arr));
         
         moveZeroes(arr);
