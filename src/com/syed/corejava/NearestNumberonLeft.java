@@ -17,7 +17,7 @@ public class NearestNumberonLeft {
 		stack.push(arr[0]);
 
 		for (int i = 1; i < arr.length; i++) {
-			while (stack.size() > 0 && stack.peek() >= arr[i]) {
+			while (!stack.isEmpty() && stack.peek() >= arr[i]) {
 				stack.pop();
 			}
 			if (stack.size() == 0) {
